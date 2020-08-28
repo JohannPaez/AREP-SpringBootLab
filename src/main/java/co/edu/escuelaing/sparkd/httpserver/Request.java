@@ -22,10 +22,6 @@ public class Request {
     
     public Request(String requestLine){
         parseRequestLine(requestLine);
-        this.method = "";
-        this.requestURI = "";
-        this.HTTPVersion = "";
-        
     }
     
     public void parseRequestLine(String requestLine){
