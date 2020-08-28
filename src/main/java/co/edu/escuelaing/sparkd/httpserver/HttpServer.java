@@ -19,7 +19,7 @@ public class HttpServer {
 
     public HttpServer() {
     }
-    
+
     public HttpServer(MicroSpring iocServer) {
         this.iocServer = iocServer;
     }
@@ -28,7 +28,22 @@ public class HttpServer {
         this.port = port;
     }
 
+    /**
+     * Funcion que retorna el número del puerto por el cual se correrá el
+     * servicio.
+     *
+     * @return El número de puerto del servicio.
+     */
+    static int getPort() {
+        if (System.getenv("PORT") != null) {
+            return Integer.parseInt(System.getenv("PORT"));
+        }
+        return 36000;
+    }
+
     public void start() {
+        
+        port = getPort();
         try {
             ServerSocket serverSocket = null;
 
@@ -132,10 +147,10 @@ public class HttpServer {
                 BufferedReader reader
                 = new BufferedReader(new InputStreamReader(in))) {
             String header = "HTTP/1.1 200 OK\r\n"
-                + "Content-Type: text/html\r\n"
-                + "\r\n";
+                    + "Content-Type: text/html\r\n"
+                    + "\r\n";
             out.println(header);
-            String line = null; 
+            String line = null;
             while ((line = reader.readLine()) != null) {
                 out.println(line);
                 System.out.println(line);
@@ -146,11 +161,11 @@ public class HttpServer {
     }
 
     private void invokeApp(String appuri, PrintWriter out) {
-       
-            String header = "HTTP/1.1 200 OK\r\n"
+
+        String header = "HTTP/1.1 200 OK\r\n"
                 + "Content-Type: text/html\r\n"
                 + "\r\n";
-            String methodresponse = iocServer.invoke(appuri);
-            out.println(header + methodresponse);
+        String methodresponse = iocServer.invoke(appuri);
+        out.println(header + methodresponse);
     }
 }
