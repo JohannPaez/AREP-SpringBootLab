@@ -7,7 +7,7 @@ package co.edu.escuelaing.sparkd.microspring;
  */
 public class HelloController {
 	@RequestMapping("/hola")
-	static public String index() {
+	static public String hola() {
 		return "Greetings from Micro Spring Boot!";
         }
 	
